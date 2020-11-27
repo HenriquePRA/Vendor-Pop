@@ -101,8 +101,8 @@ public class Pedido {
 	public void setValortotal(double valortotal) {
 		this.valortotal = valortotal;
 	}
-	public void setEntregador(String entregador) {
-		this.entregador = entregador;
+	public void setEntregador(String nomeentregador) {
+		this.entregador = nomeentregador;
 	}
 	public void setPago(boolean pago) {
 		this.pago = pago;
@@ -122,10 +122,6 @@ public class Pedido {
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		String dataArrumada = agora.format(formatador);		
 		
-		String strEntregador = null;
-		if (entregador == null) {
-			strEntregador = "Não definido";
-		}
 		
 		String strProdutos = "\n";
 		for (Produto prod : produtos) {
@@ -134,8 +130,9 @@ public class Pedido {
 		
 		return "\n  |-------------------------------|\n" +
 				"\n   id: " + id +
+				"\n   Tipo: normal" +
 				"\n   DataHora: " + dataArrumada +
-				"\n   Entregador: " + strEntregador +
+				"\n   Entregador: " + entregador +
 				"\n   Cliente: " + cliente.getNome() +
 				"\n   Produtos: " +  strProdutos +
 				"\n\n   ValorTotal: " + valortotal + " $" +

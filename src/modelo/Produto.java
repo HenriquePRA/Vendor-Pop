@@ -54,6 +54,10 @@ public class Produto {
 
 		@Override
 		public String toString() {
-			return "\n"+ nome + "\npreco: " + preco + "$\n";
+			ArrayList<Integer> pedds = new ArrayList<Integer>();
+			for (Pedido ped: this.pedidos) {
+				pedds.add(ped.getId());
+			}
+			return "\n"+ nome + "\npreco: " + preco + "$\nids dos pedidos" + pedds + "\n";
 		}
 }

@@ -2,6 +2,7 @@ package fachada;
 import modelo.Cliente;
 import modelo.Produto;
 import modelo.Pedido;
+import modelo.PedidoExpress;
 import repositorio.Repositorio;
 
 import java.util.HashMap;
@@ -67,7 +68,7 @@ public class Fachada {
 				} else if (tipo == 3) {
 					for (Pedido ped: repositorio.getPedidos()) {
 						if (ped.getCliente().getTelefone() == telefone) {
-							
+							encontrados.add(ped);
 						}
 					}
 				}
@@ -149,8 +150,41 @@ public class Fachada {
 			 if (cli == null) {
 				 throw new Exception("Cliente não encontrado.");
 			 } 
-
+			 
 			 Pedido ped = new Pedido(cli);
+			 repositorio.addPedido(ped);
+			 
+			 return ped;
+			 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
+	
+	public Pedido criarPedido(String telefone, double taxa) {
+		try {
+			if (telefone == "") {
+				throw new Exception("Telefone inválido");
+			}
+			if (taxa < 0) {
+				throw new Exception("Taxa inválida");
+			}
+			
+			 Cliente cli = null;
+			 
+			 for (Cliente clie : repositorio.getClientes()) {
+				 if (clie.getTelefone() == telefone) {
+					 cli = clie;
+				 }
+			 }
+			 
+			 if (cli == null) {
+				 throw new Exception("Cliente não encontrado.");
+			 } 
+			 
+			 Pedido ped = new PedidoExpress(cli, taxa);
 			 repositorio.addPedido(ped);
 			 
 			 return ped;
@@ -171,7 +205,7 @@ public class Fachada {
 			} else if (prod == null) {
 				throw new Exception("Produto não encontrado !");
 			} else {
-				prod.addPedido(ped);
+				ped.addProduto(prod);
 			}			
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -220,8 +254,8 @@ public class Fachada {
 			if (ped == null) {
 				throw new Exception("Pedido não encontrado !");
 			}
-			ped.setPago(true);
 			ped.setEntregador(nomeentregador);
+			ped.setPago(true);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -252,55 +286,29 @@ public class Fachada {
 		}
 		return total;
 	}
-	
-	
-	// função para ordenar o hashmap de acordo com os valores
-	private static HashMap<Integer, Integer> orderMapa(HashMap<Integer, Integer> hm) {
-		// Cria uma lista de elementos do HashMap
-        LinkedList<Entry<Integer, Integer>> lista = new LinkedList<Map.Entry<Integer, Integer> >(hm.entrySet());
-        
-        // Ordena a Lista
-        Collections.sort(lista, new Comparator<Map.Entry<Integer, Integer> >() { 
-            public int compare(Map.Entry<Integer, Integer> o2,  Map.Entry<Integer, Integer> o1) 
-            { 
-                return (o1.getValue()).compareTo(o2.getValue()); 
-            } 
-        });
-        
-       // colocando os dados da lista ordenada no HashMap
-        HashMap<Integer, Integer> temp = new LinkedHashMap<Integer, Integer>(); 
-        for (Map.Entry<Integer, Integer> aa : lista) { 
-            temp.put(aa.getKey(), aa.getValue()); 
-        } 
-        return temp;
-	}
-	
+		
 	
 	public ArrayList<Produto> consultarProdutoTop() {
 		ArrayList<Produto> topList = new ArrayList<Produto>();
-		HashMap<Integer, Integer> mapProd = new HashMap<Integer, Integer>();
+		Produto produtoTop = null;
+		int contadorTop = -1;
 		
-		// contando a quantidade de pedidos feitos para cada produto 
-		for (Pedido ped: repositorio.getPedidos()) {
-			for (Produto prd: ped.getProdutos()) {
-				Integer id = prd.getId();				
-				Integer num = mapProd.get(id);
-				if (num == null) {
-					num = 0;
+		for (Produto prod: repositorio.getProdutos()) {
+			int contador = 0;
+			for (Pedido ped: repositorio.getPedidos()) {
+				for (Produto prod2: ped.getProdutos()) {
+					if (prod2.equals(prod)) {
+						contador += 1;
+					}
 				}
-				mapProd.put(id, num + 1);
+			}
+			if (contador > contadorTop) {
+				produtoTop = prod;
+				contadorTop = contador;
 			}
 		}
-		
-		// ordenando os produtos
-		HashMap<Integer, Integer> mapOrdenado = orderMapa(mapProd);
-		
-		for (HashMap.Entry<Integer, Integer> mp: mapOrdenado.entrySet()) {
-			topList.add(repositorio.buscarProduto(mp.getKey()));
-		}
-		
-		return (ArrayList<Produto>) topList.subList(0, 5);
-
+		topList.add(produtoTop);
+		return topList;
 	}
 }
 
