@@ -117,26 +117,29 @@ public class Pedido {
 	
 	@Override
 	public String toString() {
-		
-		LocalDateTime agora = LocalDateTime.now();
+		// formatação da datahora para dd/mm/aaaa
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		String dataArrumada = agora.format(formatador);		
+		String dataArrumada = datahora.format(formatador);		
 		
-		
-		String strProdutos = "\n";
-		for (Produto prod : produtos) {
-			strProdutos += "\n     * " + prod.getNome() + ": " + prod.getPreco() +" $";
+		// listagem dos ids dos produtos
+		ArrayList<Integer> prods = new ArrayList<Integer>();
+		for (Produto prod: produtos) {
+			prods.add(prod.getId());
 		}
 		
-		return "\n  |-------------------------------|\n" +
-				"\n   id: " + id +
-				"\n   Tipo: normal" +
-				"\n   DataHora: " + dataArrumada +
-				"\n   Entregador: " + entregador +
-				"\n   Cliente: " + cliente.getNome() +
-				"\n   Produtos: " +  strProdutos +
-				"\n\n   ValorTotal: " + valortotal + " $" +
-				"\n   Pago: " + (pago ? "Sim" : "Não") + "\n";
+		return 	"\nid: " + id +
+				"\ntipo: normal" +
+				"\ndatahora: " + dataArrumada +
+				"\nvalortotal: " + valortotal + 
+				"\nentregador: " + entregador +
+				"\npago: " + pago +
+				"\nprodutos: " + prods +
+				"\ncliente: [\n" + "  telefone: " + cliente.getTelefone() +
+				"\n  nome: "+ cliente.getNome() +
+				"\n  endereco: " + cliente.getEndereco() + "\n]";
+				
+				
+				
 	}
 }
 

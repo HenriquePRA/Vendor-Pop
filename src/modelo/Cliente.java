@@ -59,21 +59,14 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		
-		String strPedidos = "";
-			
-		for (Pedido ped: pedidos) {
-			strPedidos += ped.toString();
+		ArrayList<Integer> pedds = new ArrayList<Integer>();
+		for (Pedido ped: this.pedidos) {
+			pedds.add(ped.getId());
 		}
 		
-		if (strPedidos == "") {
-			strPedidos += " Nenhum pedido realizado !";
-		} else {
-			strPedidos += "\n  |-------------------------------|\n";
-		}
-		
-		return 	"\n Nome: " + nome + 
-				"\n Telefone: " + telefone +
-				"\n Endereço: " + endereco + "\n";
+		return 	"\ntelefone: " + telefone +
+				"\nnome: " + nome + 
+				"\nendereço: " + endereco +
+				"\nids dos pedidos relacionados:\n" +  pedds + "\n";
 	}	
 }

@@ -1,7 +1,7 @@
 package modelo;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class PedidoExpress extends Pedido{
 	private double taxaEntrega;
@@ -20,25 +20,28 @@ public class PedidoExpress extends Pedido{
 	
 	@Override
 	public String toString() {
-		
-		LocalDateTime agora = LocalDateTime.now();
+		// formatação da datahora para dd/mm/aaaa
 		DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		String dataArrumada = agora.format(formatador);		
+		String dataArrumada = this.getDatahora().format(formatador);		
 		
-		
-		String strProdutos = "\n";
-		for (Produto prod : this.getProdutos()) {
-			strProdutos += "\n     * " + prod.getNome() + ": " + prod.getPreco() +" $";
+		// listagem dos ids dos produtos
+		ArrayList<Integer> prods = new ArrayList<Integer>();
+		for (Produto prod: this.getProdutos()) {
+			prods.add(prod.getId());
 		}
 		
-		return "\n  |-------------------------------|\n" +
-				"\n   id: " + this.getId() +
-				"\n   Tipo: EXPRESS" +
-				"\n   DataHora: " + dataArrumada +
-				"\n   Entregador: " + this.getEntregador() +
-				"\n   Cliente: " + this.getCliente().getNome() +
-				"\n   Produtos: " +  strProdutos +
-				"\n\n   ValorTotal: " + this.getValortotal() + " $" +
-				"\n   Pago: " + (this.isPago() ? "Sim" : "Não") + "\n";
+		return 	"\nid: " + this.getId() +
+				"\ntipo: express" +
+				"\ndatahora: " + dataArrumada +
+				"\nvalortotal: " + this.getValortotal() + 
+				"\nentregador: " + this.getEntregador() +
+				"\npago: " + this.isPago() +
+				"\nprodutos: " + prods +
+				"\ncliente: [\n" + "  telefone: " + this.getCliente().getTelefone() +
+				"\n  nome: "+ this.getCliente().getNome() +
+				"\n  endereco: " + this.getCliente().getEndereco() + "\n]";
+				
+				
+				
 	}
 }

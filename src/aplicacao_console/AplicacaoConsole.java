@@ -1,74 +1,174 @@
 package aplicacao_console;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import fachada.Fachada;
+import modelo.Cliente;
+import modelo.Pedido;
+import modelo.Produto;
 
 public class AplicacaoConsole {
-	public static void main(String[] args) {
-		Fachada fachada = new Fachada();
-		
-		// cadastro dos clientes	
-		fachada.cadastrarCliente("81476369", "Jose Silva",  "Rua dos Pescadores 15");
-		fachada.cadastrarCliente("98541569", "Maria Pereira", "Avenida jose filho 123");
-		fachada.cadastrarCliente("81234756", "Lucia Santos", "Rua Instituto Elo 7");
-		fachada.cadastrarCliente("91165001", "Adamastor", "Avenida Presidente Medici 255");
-		
-		// cadastro dos produtos
-		fachada.cadastrarProduo("Sanduiche de frango", 4.5);
-		fachada.cadastrarProduo("Sanduiche de Presunto", 4);
-		fachada.cadastrarProduo("Hamburger", 5.2);
-		fachada.cadastrarProduo("Salgado", 3);
-		fachada.cadastrarProduo("Refrigerante", 6);
+	
+	private Produto pizza, sushi,coca, guarana, suco;
+	
+	private static Fachada fachada = new Fachada();
 
-		// cadastro dos pedidos		
-		fachada.criarPedido("81476369");
-		fachada.adicionarProdutoPedido(1, 1);
-		fachada.adicionarProdutoPedido(1, 2);
-		fachada.adicionarProdutoPedido(1, 2);
-		fachada.removerProdutoPedido(1, 2);
-		fachada.pagarPedido(1, "Joao");
+	public AplicacaoConsole() {
+		try {
+			System.out.println("Cadastrar clientes e produtos");
+			fachada.cadastrarCliente("988881111", "paulo", "Rua dos Tronos, 1");
+			fachada.cadastrarCliente("988882222", "maria","Rua da Justiça, 2");			
+			fachada.cadastrarCliente("988883333", "pedro","Rua da Pesca, 3");			
+			fachada.cadastrarCliente("988884444", "ana","Rua do Silencio, 4");		
+			fachada.cadastrarCliente("988885555", "katia","Rua da Paz, 5");		
+
+			pizza = fachada.cadastrarProduto("pizza", 30.0);
+			sushi = fachada.cadastrarProduto("sushi", 40.0);
+			coca = fachada.cadastrarProduto("coca-cola", 10.0);
+			guarana = fachada.cadastrarProduto("guarana", 9.0);	
+			suco = fachada.cadastrarProduto("suco", 4.0);	
+
+			System.out.println("Criar pedidos");
+			fachada.criarPedido("988881111");
+			fachada.criarPedido("988882222");
+			fachada.criarPedido("988883333");
+			fachada.criarPedido("988881111");
+			fachada.criarPedidoExpress("988881111", 10.0);
+
+			System.out.println("Adicionar produtos");		
+			fachada.adicionarProdutoPedido(1, 1);
+			fachada.adicionarProdutoPedido(1, 1);
+			fachada.adicionarProdutoPedido(1, 3);
+
+			fachada.adicionarProdutoPedido(2, 2);	
+			fachada.adicionarProdutoPedido(2, 2);
+			fachada.adicionarProdutoPedido(2, 4);
+			fachada.removerProdutoPedido(2, 2);	
+
+			fachada.adicionarProdutoPedido(3, 1);	
+			fachada.adicionarProdutoPedido(3, 2);
+			fachada.adicionarProdutoPedido(3, 3);	
+			fachada.adicionarProdutoPedido(3, 4);
+			fachada.removerProdutoPedido(3, 4);	
+
+			//pedido 4 nao possui produtos
+
+			fachada.adicionarProdutoPedido(5, 1);	
+			fachada.adicionarProdutoPedido(5, 2);
+			fachada.adicionarProdutoPedido(5, 3);	
+			fachada.adicionarProdutoPedido(5, 4);
+			fachada.adicionarProdutoPedido(5, 5);
+
+			listarProdutos("");
+			listarProdutos("i"); //contem a letra i  (contains)
+			listarClientes();
+			listarPedidos();
+			listarPedidos("988881111",1);	//pagos
+			listarPedidos("988881111",2);	//nao pagos
+			listarPedidos("988881111",3);	//todos
+
+			System.out.println("\nPagar pedidos");				
+			fachada.pagarPedido(1, "joao");		//nome do entregador
+			fachada.pagarPedido(2, "jose");
+			fachada.pagarPedido(5, "jose");
+			System.out.println("Cancelar pedido");
+			fachada.cancelarPedido(3);
+
+			System.out.println("\nconsultar pedido 1\n"+ fachada.consultarPedido(1)); //idpedido
+			System.out.println("\nconsultar pedido 2\n"+ fachada.consultarPedido(2));
+			System.out.println("\nconsultar pedido 5\n"+ fachada.consultarPedido(5));
+
+			int dia = LocalDate.now().getDayOfMonth();
+			double arrec = fachada.consultarArrecadacao(dia);  //somente pedidos pagos
+			System.out.println("Arrecadacao do dia "+ dia);
+			System.out.println(arrec);
+
+			double calculo = 3*pizza.getPreco()+
+							2*sushi.getPreco()+
+							2*coca.getPreco()+
+							2*guarana.getPreco()+
+							1*suco.getPreco() + 10.0;
 		
-		fachada.criarPedido("98541569");
-		fachada.adicionarProdutoPedido(2, 1);
-		fachada.removerProdutoPedido(2, 1);
-		fachada.adicionarProdutoPedido(2, 2);
-		fachada.pagarPedido(2, "Jose");
-		
-		fachada.criarPedido("81234756");
-		fachada.adicionarProdutoPedido(3, 4);
-		fachada.adicionarProdutoPedido(3, 5);
-		fachada.cancelarPedido(3);
-		
-		fachada.criarPedido("91165001");
-		fachada.adicionarProdutoPedido(4, 3);
-		fachada.adicionarProdutoPedido(4, 3);
-		
-		fachada.criarPedido("81476369", 10);
-		fachada.adicionarProdutoPedido(5, 1);
-		fachada.adicionarProdutoPedido(5, 2);
-		fachada.adicionarProdutoPedido(5, 3);
-		fachada.adicionarProdutoPedido(5, 4);
-		fachada.adicionarProdutoPedido(5, 5);
-		
-		System.out.println("\nListagem total de produtos\n");
-		System.out.println(fachada.listarProdutos(""));
-		System.out.println("\nListagem de produtos com o nome sanduiche\n");
-		System.out.println(fachada.listarProdutos("Sanduiche"));
-		System.out.println("\nListagem de todos os clientes\n");
-		System.out.println(fachada.listarClientes());
-		System.out.println("\nListagem de todos os pedidos\n");
-		System.out.println(fachada.listarPedidos());
-		System.out.println("\nListagem de todos os pedidos pagos do numero 81476369\n");
-		System.out.println(fachada.listarPedidos("81476369", 1));
-		System.out.println("\nListagem de todos os pedidos NAO pagos do numero 81476369\n");
-		System.out.println(fachada.listarPedidos("81476369", 2));
-		System.out.println("\nListagem de todos os pedidos do numero 81476369\n");
-		System.out.println(fachada.listarPedidos("81476369", 3));
-		System.out.println("\nConsulta pelo pedido de id 1\n" + fachada.consultarPedido(1));
-		System.out.println("\nConsulta pela arrecadação do dia atual\n");
-		System.out.println(fachada.consultarArrecadacao(LocalDateTime.now().getDayOfMonth()));
-		System.out.println("\nConsulta pelos produtos mais vendidos\n");
-		System.out.println(fachada.consultarProdutoTop());		
+			if(arrec != calculo)
+			System.out.println("arrecadacao diferente de "+calculo);
+
+			System.out.println("Produtos TOP");
+			ArrayList<Produto> tops = fachada.consultarProdutoTop();
+			for(Produto p : tops)
+				System.out.println("produto Top: "+ p);
+
+			//---------------------------------------------
+			listarProdutos("");
+			listarProdutos("i"); //contem a letra i
+			listarClientes();
+			listarPedidos();
+			listarPedidos("988881111",1);	//pagos
+			listarPedidos("988881111",2);	//nao pagos
+			listarPedidos("988881111",3);	//todos
+
+			//**************
+			testarExcecoes();
+			//**************
+
+		} catch (Exception e) {
+			System.out.println("--->"+e.getMessage());
+		}		
+	}
+
+	public  void listarClientes() {
+		System.out.println("\nListagem de clientes:");
+		ArrayList<Cliente> clientes = fachada.listarClientes();
+		for(Cliente c : clientes)
+			System.out.println(c);
+	}
+
+	public  void listarProdutos(String texto) {
+		System.out.println("\nListagem de produtos: " + texto);
+		ArrayList<Produto> produtos = fachada.listarProdutos(texto);
+		for(Produto p : produtos)
+			System.out.println(p);
+	}
+
+	public  void listarPedidos() {
+		System.out.println("\nListagem de pedidos:");
+		ArrayList<Pedido> pedidos = fachada.listarPedidos();
+		for(Pedido p : pedidos)
+			System.out.println(p);
+	}
+
+	public  void listarPedidos(String telefone, int tipo) {
+		System.out.println("\nListagem de pedidos de um cliente: - tipo:" + tipo);
+		ArrayList<Pedido> pedidos = fachada.listarPedidos(telefone, tipo);
+		for(Pedido p : pedidos)
+			System.out.println(p);
+	}
+
+	public static void testarExcecoes() {
+		System.out.println("\n-------EXCEÇÕES LANÇADAS--------");
+		try {
+			fachada.cadastrarProduto("pizza", 30.0);
+			System.out.println("*************1Nao lançou exceção para: cadastro de produto existente "); 
+		}catch (Exception e) {System.out.println("1ok--->"+e.getMessage());}
+
+		try {
+			fachada.adicionarProdutoPedido(99, 1);	//pedido 99
+			System.out.println("*************2Nao lançou exceção para: pedido inexistente"); 
+		}catch (Exception e) {System.out.println("2ok--->"+e.getMessage());}
+
+		try {
+			fachada.adicionarProdutoPedido(4, 99);	//produto 99
+			System.out.println("*************3Nao lançou exceção para: pedido de produto inexistente"); 
+		}catch (Exception e) {System.out.println("3ok--->"+e.getMessage());}
+
+		try {
+			fachada.pagarPedido(2,"entregador");	//pedido 2 ja foi pago
+			System.out.println("*************4Nao lançou exceção para: pagar pedido ja pago"); 
+		}catch (Exception e) {System.out.println("4ok--->"+e.getMessage());}
+	}
+
+
+	public static void main (String[] args) {
+		@SuppressWarnings("unused")
+		AplicacaoConsole aplicacaoConsole = new AplicacaoConsole();
 	}
 }

@@ -5,14 +5,8 @@ import modelo.Pedido;
 import modelo.PedidoExpress;
 import repositorio.Repositorio;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 
 
@@ -81,7 +75,7 @@ public class Fachada {
 	}
 	
 	
-	public Produto cadastrarProduo(String nome, double preco) {
+	public Produto cadastrarProduto(String nome, double preco) {
 		try {
 			if (nome == "") {
 				throw new Exception("Nome inválido !");
@@ -163,7 +157,7 @@ public class Fachada {
 	}
 	
 	
-	public Pedido criarPedido(String telefone, double taxa) {
+	public Pedido criarPedidoExpress(String telefone, double taxa) {
 		try {
 			if (telefone == "") {
 				throw new Exception("Telefone inválido");
@@ -246,6 +240,7 @@ public class Fachada {
 	
 	
 	public void pagarPedido(int idpedido, String nomeentregador) {
+		
 		try {
 			if (nomeentregador == "") {
 				throw new Exception("Nome inválido para entregador.");

@@ -58,6 +58,9 @@ public class Produto {
 			for (Pedido ped: this.pedidos) {
 				pedds.add(ped.getId());
 			}
-			return "\n"+ nome + "\npreco: " + preco + "$\nids dos pedidos" + pedds + "\n";
+			return "\nid: " + id + 
+				   "\nnome: "+ nome +
+				   "\npreco: " + preco +
+				   "\nids dos pedidos relacionados:\n" + pedds + "\n";
 		}
 }
