@@ -23,47 +23,41 @@ public class Pedido {
 
 	
 	// Adicionar ou Remover produtos
-	public void addProduto(Produto prod) {
-		try {
-			if (!pago) {
-				produtos.add(prod);
-				prod.addPedido(this);
-				valortotal += prod.getPreco();
-			} else {
-				throw new Exception("Não é possível alterar um pedido pago");
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+	public void addProduto(Produto prod) throws Exception {
+		if (!pago) {
+			produtos.add(prod);
+			prod.addPedido(this);
+			valortotal += prod.getPreco();
+		} else {
+			throw new Exception("Não é possível alterar um pedido pago");
 		}
 	}
-	public void removerProduto(Produto prod) {
-		try {
-			if (produtos.contains(prod) && !pago) {
+	public void removerProduto(Produto prod) throws Exception {
+		if (!pago) {
+			if (produtos.contains(prod)) {
 				prod.removerPedido(this);
 				produtos.remove(prod);			
-				valortotal -= prod.getPreco();
+				valortotal -= prod.getPreco();				
 			} else {
-				throw new Exception("Não é possível alterar um pedido pago");
+				throw new Exception("Não é possivel remover do pedido um produto que não está contido nele.");
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} else {
+			throw new Exception("Não é possível alterar um pedido pago");
+			
 		}
 	}
-	public void esvaziar() {
-		try {
-			if (!pago) {
-				for (Produto prod : produtos) {
-					if (produtos.contains(prod)) {
-						prod.removerPedido(this);
-					}				
-				}
-				produtos.clear();
-			} else {
-				throw new Exception("Não é possível alterar um pedido pago");
+	public void esvaziar() throws Exception {
+		if (!pago) {
+			for (Produto prod : produtos) {
+				if (produtos.contains(prod)) {
+					prod.removerPedido(this);
+				}				
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			produtos.clear();
+		} else {
+			throw new Exception("Não é esvaziar alterar um pedido pago");
 		}
+
 	}
 
 	
@@ -137,9 +131,6 @@ public class Pedido {
 				"\ncliente: [\n" + "  telefone: " + cliente.getTelefone() +
 				"\n  nome: "+ cliente.getNome() +
 				"\n  endereco: " + cliente.getEndereco() + "\n]";
-				
-				
-				
 	}
 }
 

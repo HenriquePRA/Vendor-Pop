@@ -111,59 +111,84 @@ public class AplicacaoConsole {
 			//**************
 
 		} catch (Exception e) {
-			System.out.println("--->"+e.getMessage());
+			System.out.println("---> "+e.getMessage());
 		}		
 	}
 
-	public  void listarClientes() {
+	public void listarClientes() {
 		System.out.println("\nListagem de clientes:");
 		ArrayList<Cliente> clientes = fachada.listarClientes();
 		for(Cliente c : clientes)
 			System.out.println(c);
 	}
 
-	public  void listarProdutos(String texto) {
+	public void listarProdutos(String texto) {
 		System.out.println("\nListagem de produtos: " + texto);
 		ArrayList<Produto> produtos = fachada.listarProdutos(texto);
 		for(Produto p : produtos)
 			System.out.println(p);
 	}
 
-	public  void listarPedidos() {
+	public void listarPedidos() {
 		System.out.println("\nListagem de pedidos:");
 		ArrayList<Pedido> pedidos = fachada.listarPedidos();
 		for(Pedido p : pedidos)
 			System.out.println(p);
 	}
 
-	public  void listarPedidos(String telefone, int tipo) {
+	public void listarPedidos(String telefone, int tipo) throws Exception {
 		System.out.println("\nListagem de pedidos de um cliente: - tipo:" + tipo);
 		ArrayList<Pedido> pedidos = fachada.listarPedidos(telefone, tipo);
 		for(Pedido p : pedidos)
 			System.out.println(p);
 	}
+	
+	public Fachada getFachada() {
+		return fachada;
+	}
 
 	public static void testarExcecoes() {
-		System.out.println("\n-------EXCEÇÕES LANÇADAS--------");
+		System.out.println("\n################## EXCEÇÕES LANÇADAS ##################\n");
 		try {
 			fachada.cadastrarProduto("pizza", 30.0);
-			System.out.println("*************1Nao lançou exceção para: cadastro de produto existente "); 
-		}catch (Exception e) {System.out.println("1ok--->"+e.getMessage());}
+			System.out.println("1 - Nao lançou exceção para: cadastro de produto existente "); 
+		}catch (Exception e) {System.out.println("1 - OK ---> "+e.getMessage());}
 
 		try {
 			fachada.adicionarProdutoPedido(99, 1);	//pedido 99
-			System.out.println("*************2Nao lançou exceção para: pedido inexistente"); 
-		}catch (Exception e) {System.out.println("2ok--->"+e.getMessage());}
+			System.out.println("2 - Nao lançou exceção para: pedido inexistente"); 
+		}catch (Exception e) {System.out.println("2 - OK ---> "+e.getMessage());}
 
 		try {
 			fachada.adicionarProdutoPedido(4, 99);	//produto 99
-			System.out.println("*************3Nao lançou exceção para: pedido de produto inexistente"); 
-		}catch (Exception e) {System.out.println("3ok--->"+e.getMessage());}
+			System.out.println("3 - Nao lançou exceção para: pedido de produto inexistente"); 
+		}catch (Exception e) {System.out.println("3 - OK ---> "+e.getMessage());}
 
 		try {
 			fachada.pagarPedido(2,"entregador");	//pedido 2 ja foi pago
-			System.out.println("*************4Nao lançou exceção para: pagar pedido ja pago"); 
-		}catch (Exception e) {System.out.println("4ok--->"+e.getMessage());}
+			System.out.println("4 - Nao lançou exceção para: pagar pedido ja pago"); 
+		}catch (Exception e) {System.out.println("4 - OK ---> "+e.getMessage());}
+		
+		try {
+			fachada.adicionarProdutoPedido(2, 1);   //pedido 2 ja foi pago
+			System.out.println("5 - Nao lançou exceção para: adicionar produtos em pedido pago"); 
+		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
+		
+		try {
+			fachada.removerProdutoPedido(2, 2);   //pedido 2 ja foi pago
+			System.out.println("5 - Nao lançou exceção para: remover produtos em pedido pago"); 
+		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
+		
+		try {
+			fachada.removerProdutoPedido(4, 1);   //pedido 2 ja foi pago
+			System.out.println("5 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
+		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
+
+		try {
+			fachada.cancelarPedido(2);   //pedido 2 ja foi pago
+			System.out.println("5 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
+		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
+		
 	}
 
 
