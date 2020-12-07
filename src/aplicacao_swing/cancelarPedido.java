@@ -1,33 +1,32 @@
 package aplicacao_swing;
 
 import fachada.Fachada;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 import javax.swing.JButton;
 
-public class pagarPedido extends JFrame {
+
+public class cancelarPedido extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel label;
 	private JTextField textField;
-	private JLabel label_1;
-	private JTextField textField_1;
+	private JLabel label;
 	private JButton button;
-	private JLabel label_2;
+	private JLabel label_1;
 
 	public static void main(String[] args, Fachada fac) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					pagarPedido frame = new pagarPedido(fac);
+					cancelarPedido frame = new cancelarPedido(fac);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,47 +45,36 @@ public class pagarPedido extends JFrame {
 	  }
 	}
 
-	public pagarPedido(Fachada fac) {
-		setTitle("Sistema de Vendas - Pagar Pedido");
-		setResizable(false);
+	public cancelarPedido(Fachada fac) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("Sistema de Vendas - Cancelar Pedido");
+		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		label = new JLabel("ID do pedido:");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(47, 36, 118, 14);
-		contentPane.add(label);
-		
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setColumns(10);
-		textField.setBounds(47, 58, 321, 31);
+		textField.setBounds(57, 86, 288, 31);
 		contentPane.add(textField);
 		
-		label_1 = new JLabel("Nome do Entregador");
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(47, 100, 138, 14);
-		contentPane.add(label_1);
+		label = new JLabel("ID do Pedido:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label.setBounds(57, 61, 139, 14);
+		contentPane.add(label);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setColumns(10);
-		textField_1.setBounds(47, 123, 321, 31);
-		contentPane.add(textField_1);
-		
-		button = new JButton("Pagar");
+		button = new JButton("Cancelar");
 		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button.setBounds(47, 165, 154, 31);
+		button.setBounds(57, 128, 139, 31);
 		contentPane.add(button);
 		
-		label_2 = new JLabel("");
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_2.setBounds(47, 207, 386, 31);
-		contentPane.add(label_2);
+		label_1 = new JLabel("");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		label_1.setBounds(57, 170, 387, 31);
+		contentPane.add(label_1);
 		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,14 +85,13 @@ public class pagarPedido extends JFrame {
 						throw new Exception("ID do pedido inválido !");
 					} else {
 						int idped = Integer.parseInt(textField.getText());
-						fac.pagarPedido(idped, textField_1.getText());
-						label_2.setText("Pedido pago com sucesso !");
+						fac.cancelarPedido(idped);
+						label_1.setText("Pedido cancelado com sucesso !");
 					}
 				} catch (Exception e) {
-					label_2.setText(e.getMessage());
+					label_1.setText(e.getMessage());
 				}
 			}
 		});	
 	}
-
 }

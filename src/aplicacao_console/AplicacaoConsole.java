@@ -111,7 +111,7 @@ public class AplicacaoConsole {
 			//**************
 
 		} catch (Exception e) {
-			System.out.println("---> "+e.getMessage());
+			System.out.println("EXCESSÃO NÃO PLANEJADA ---> "+e.getMessage());
 		}		
 	}
 
@@ -176,17 +176,17 @@ public class AplicacaoConsole {
 		
 		try {
 			fachada.removerProdutoPedido(2, 2);   //pedido 2 ja foi pago
-			System.out.println("5 - Nao lançou exceção para: remover produtos em pedido pago"); 
+			System.out.println("6 - Nao lançou exceção para: remover produtos em pedido pago"); 
 		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
 		
 		try {
 			fachada.removerProdutoPedido(4, 1);   //pedido 2 ja foi pago
-			System.out.println("5 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
+			System.out.println("7 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
 		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
 
 		try {
 			fachada.cancelarPedido(2);   //pedido 2 ja foi pago
-			System.out.println("5 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
+			System.out.println("8 - Nao lançou exceção para: remover produto nao existentes em um pedido"); 
 		}catch (Exception e) {System.out.println("5 - OK ---> "+e.getMessage());}
 		
 	}

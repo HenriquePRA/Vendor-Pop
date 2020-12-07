@@ -39,7 +39,7 @@ public class Pedido {
 				produtos.remove(prod);			
 				valortotal -= prod.getPreco();				
 			} else {
-				throw new Exception("Não é possivel remover do pedido um produto que não está contido nele.");
+				throw new Exception("Este produto não está contido no pedido.");
 			}
 		} else {
 			throw new Exception("Não é possível alterar um pedido pago");

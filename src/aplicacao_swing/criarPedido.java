@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -53,25 +52,25 @@ public class criarPedido extends JFrame {
 
 		label = new JLabel("Telefone:");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(72, 51, 139, 14);
+		label.setBounds(48, 56, 139, 14);
 		contentPane.add(label);
 
 		textField = new JTextField();
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField.setBounds(72, 76, 288, 31);
+		textField.setBounds(48, 81, 288, 31);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		// campo de exibição de mensagem
 		label_1 = new JLabel("");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		label_1.setBounds(72, 160, 288, 48);
+		label_1.setBounds(48, 165, 386, 31);
 		contentPane.add(label_1);		
 		
 		// criação de pedido normal
 		button = new JButton("Pedido Normal");
 		button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button.setBounds(72, 118, 139, 31);
+		button.setBounds(48, 123, 139, 31);
 		contentPane.add(button);
 
 		button.addActionListener(new ActionListener() {
@@ -83,7 +82,7 @@ public class criarPedido extends JFrame {
 					}					
 					
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage());
+					label_1.setText(e.getMessage());
 				}
 			}
 		});		
@@ -91,7 +90,7 @@ public class criarPedido extends JFrame {
 		// criação de pedido express
 		button_1 = new JButton("Pedido Express");
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		button_1.setBounds(221, 118, 139, 31);
+		button_1.setBounds(197, 123, 139, 31);
 		contentPane.add(button_1);
 		
 		button_1.addActionListener(new ActionListener() {
@@ -103,7 +102,7 @@ public class criarPedido extends JFrame {
 					}
 					
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(contentPane, e.getMessage());
+					label_1.setText(e.getMessage());
 				}
 			}
 		});	

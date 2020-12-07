@@ -1,0 +1,8 @@
+Projeto de POO 
+Sistema de Vendas
+
+Aluno 1: Henrique Poggi Rodrigues Amaral
+Matricula Aluno1: 20182370028
+
+Aluno 2: Adrianderson Oliveira de Souza Lira
+Matricula Aluno2: 20182370015

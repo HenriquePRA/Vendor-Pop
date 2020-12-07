@@ -45,26 +45,28 @@ public class Fachada {
 		} else if (tipo < 1 || tipo > 3) {
 			throw new Exception("Tipo inválido.");
 		} else {
-			ArrayList<Pedido> encontrados = new ArrayList<>();		
+			ArrayList<Pedido> encontrados = new ArrayList<>();
+			
 			if (tipo == 1) {
 				for (Pedido ped: repositorio.getPedidos()) {
-					if (ped.isPago() && (ped.getCliente().getTelefone() == telefone)) {
+					if (ped.isPago() && (ped.getCliente().getTelefone().equals(telefone))) {
 						encontrados.add(ped);
 					}
 				}
 			} else if (tipo == 2) {
 				for (Pedido ped: repositorio.getPedidos()) {
-					if (!ped.isPago() && (ped.getCliente().getTelefone() == telefone)) {
+					if (!ped.isPago() && (ped.getCliente().getTelefone().equals(telefone))) {
 						encontrados.add(ped);
 					}
 				}
 			} else if (tipo == 3) {
 				for (Pedido ped: repositorio.getPedidos()) {
-					if (ped.getCliente().getTelefone() == telefone) {
+					if (ped.getCliente().getTelefone().equals(telefone)) {
 						encontrados.add(ped);
 					}
 				}
-			}
+			}		
+			
 			return encontrados;
 		}			
 		
@@ -143,10 +145,10 @@ public class Fachada {
 	
 	public Pedido criarPedidoExpress(String telefone, double taxa) throws Exception {
 		if (telefone.isEmpty()) {
-			throw new Exception("Telefone inválido");
+			throw new Exception("Telefone inválido.");
 		}
 		if (taxa < 0) {
-			throw new Exception("Taxa inválida");
+			throw new Exception("Taxa inválida.");
 		}
 		
 		 Cliente cli = null;
