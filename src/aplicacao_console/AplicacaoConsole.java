@@ -1,5 +1,4 @@
 package aplicacao_console;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import fachada.Fachada;
@@ -78,24 +77,13 @@ public class AplicacaoConsole {
 			System.out.println("\nconsultar pedido 2\n"+ fachada.consultarPedido(2));
 			System.out.println("\nconsultar pedido 5\n"+ fachada.consultarPedido(5));
 
-			int dia = LocalDate.now().getDayOfMonth();
-			double arrec = fachada.consultarArrecadacao(dia);  //somente pedidos pagos
-			System.out.println("Arrecadacao do dia "+ dia);
-			System.out.println(arrec);
-
 			double calculo = 3*pizza.getPreco()+
 							2*sushi.getPreco()+
 							2*coca.getPreco()+
 							2*guarana.getPreco()+
 							1*suco.getPreco() + 10.0;
 		
-			if(arrec != calculo)
-			System.out.println("arrecadacao diferente de "+calculo);
-
-			System.out.println("Produtos TOP");
-			ArrayList<Produto> tops = fachada.consultarProdutoTop();
-			for(Produto p : tops)
-				System.out.println("produto Top: "+ p);
+			System.out.println("Cálculo de Produtos: "+calculo);
 
 			//---------------------------------------------
 			listarProdutos("");

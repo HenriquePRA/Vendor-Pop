@@ -41,16 +41,6 @@ public class telaListagem extends JFrame {
 		});
 	}
 
-	// checa se uma string pode se tornar um número
-	private boolean isNumero(String s) {
-	  try {  
-	    Double.parseDouble(s);  
-	    return true;
-	  } catch(NumberFormatException e) {  
-	    return false;
-	  }
-	}
-
 	public telaListagem(Fachada fac, Integer chave) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
@@ -67,32 +57,10 @@ public class telaListagem extends JFrame {
 		
 		label = new JLabel("");
 		label.setBounds(10, 227, 424, 14);
-		contentPane.add(label);
-				
+		contentPane.add(label);				
 		textPane = new JTextPane();
-		if (chave == 8) {
-			try {
-				String dia = JOptionPane.showInputDialog("Digite o dia desejado: ");
-				if (!isNumero(dia)) {
-					throw new Exception("Dia inválido");
-				} else {
-					double ped = fac.consultarArrecadacao(Integer.parseInt(dia));
-					textPane.setText("Arrecadação do dia: "+ ped);
-					label.setText("");
-				}
-			} catch (Exception e) {
-				label.setText(e.getMessage());
-			}
-		}
-		else if (chave == 7) {
-			ArrayList<Produto> pro = fac.consultarProdutoTop();
-			String str = "";
-			for (Produto pro2: pro) {
-				str += pro2 + "\n";
-			}
-			textPane.setText(str);
-			label.setText("");
-		} else if (chave == 6) {
+	
+		if (chave == 6) {
 			try {
 				String id = JOptionPane.showInputDialog("Digite o telefone do cliente: ");
 		

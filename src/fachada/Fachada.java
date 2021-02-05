@@ -236,39 +236,4 @@ public class Fachada {
 			repositorio.cancelarpedido(ped);
 		}
 	}
-	
-	
-	public double consultarArrecadacao(int dia) {
-		double total = 0;
-		for (Pedido ped: repositorio.getPedidos()) {
-			if ((ped.getDatahora().getDayOfMonth() == dia) && (ped.isPago())) {
-				total += ped.getValortotal();
-			}
-		}
-		return total;
-	}
-		
-	
-	public ArrayList<Produto> consultarProdutoTop() {
-		ArrayList<Produto> topList = new ArrayList<Produto>();
-		Produto produtoTop = null;
-		int contadorTop = -1;
-		
-		for (Produto prod: repositorio.getProdutos()) {
-			int contador = 0;
-			for (Pedido ped: repositorio.getPedidos()) {
-				for (Produto prod2: ped.getProdutos()) {
-					if (prod2.equals(prod)) {
-						contador += 1;
-					}
-				}
-			}
-			if (contador > contadorTop) {
-				produtoTop = prod;
-				contadorTop = contador;
-			}
-		}
-		topList.add(produtoTop);
-		return topList;
-	}
 }

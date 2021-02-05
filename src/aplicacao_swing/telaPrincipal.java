@@ -181,23 +181,5 @@ public class telaPrincipal {
 			}
 		});		
 		mnListagem.add(mntmLsPedNaoPagoCliente);
-		
-		JMenuItem mntmProdutosTop = new JMenuItem("Produtos Top");
-		mntmProdutosTop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				telaListagem tl_7 = new telaListagem(fachada, 7);
-				tl_7.setVisible(true);
-			}
-		});		
-		mnListagem.add(mntmProdutosTop);
-		
-		JMenuItem mntmArrecadacao = new JMenuItem("Arrecadação");
-		mntmArrecadacao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				telaListagem tl_8 = new telaListagem(fachada, 8);
-				tl_8.setVisible(true);
-			}
-		});		
-		mnListagem.add(mntmArrecadacao);
 	}
 }
