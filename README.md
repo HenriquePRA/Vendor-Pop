@@ -1,4 +1,4 @@
-# Projeto de POO (Sistema de Vendas) :books:
+# Vendor Pop :books:
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -33,13 +33,15 @@ de métodos e construtores.
     <b>Produto:</b> guarda os campos id, nome, preço e pedidos (arraylist com os pedidos que tem esse produto), possui getters
     para todos os campos todavia setters apenas para nomes e preço. dispõe metodos específicos para adicionar ou
     remover pedidos a sua lista de pedidos.
-  </li><br/>
+  </li>
+  <br/>
   <li>
     <a name="cliente"></a>
     <b>Cliente:</b> guarda os campos, telefone (id), nome, endereço e pedidos (arraylist com os pedidos associados ao cliente),
     possui getters para todos os seus campos todavia setters apenas para os campos telefone, nome e endereço e dispõe de métodos
     específicos para adicionar ou remover pedidos a sua lista de pedidos. 
-  </li><br/>
+  </li>
+  <br/>
   <li>
     <a name="pedido"></a>
     <b>Pedido:</b> guarda os campos, id (auto incrementado), datahora, valortotal (soma do valor de todos os produtos + entrega),
@@ -49,13 +51,15 @@ de métodos e construtores.
   <li>
     <b>Pedido Express:</b> especialização de pedido que herda todas os atributos e métodos do mesmo, o pedido express possui um
     atributo taxa entrega assim como getter e setter para essa taxa. 
-  </li><br/>
+  </li>
+  <br/>
   <li>
     <a name="repositorio"></a>
     <b>Repositório:</b> guarda arraylists para objetos do tipo produto, cliente e pedido. possui métodos para adicionar e buscar 
     objetos as listas de cliente, produto, e pedido. também possui 3 métodos get onde cada um retorna uma das listas de objeto e 
     por fim um método para cancelar pedidos.
-  </li><br/>
+  </li>
+  <br/>
   <li>
     <a name="fachada"></a>
     <b>Fachada:</b> é responsável por criar e realizar a comunicação entre as aplicações (console e gráfica) com o repositório,
@@ -63,11 +67,13 @@ de métodos e construtores.
     requisitos desses testes não sejam satisfeitos. possui métodos que listam clientes produtos e pedidos com filtros específicos,
     métodos para alterar o estado de um pedido adicionando e removendo produtos e tornando-o pago.    
   </li>
+  <br/>
   <li>
     <a name="console"></a>
     <b>Aplicação Console:</b> é responsável por criar a fachada e realizar os testes necessários a fim de captar exceções antes
     imprevistas, a aplicação console não interage com o usuário apesar de poder ser executada independentemente da aplicação gráfica.
-  </li><br/>
+  </li>
+  <br/>
   <li>
     <a name="gui"></a>
     <b>Aplicação Gráfica Swing</b> é por onde o usuário interage com o sistema dispoe de cinco telas principal, criação de pedido,
@@ -80,7 +86,6 @@ de métodos e construtores.
 ## Status do Projeto :construction_worker:
   Finalizado :tada:
 
-  
 <a name="testes"></a>
 ## Testes :computer:
 
